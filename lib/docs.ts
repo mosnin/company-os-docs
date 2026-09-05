@@ -95,6 +95,23 @@ const app: DocPage[] = [
 
 const framework: DocPage[] = [
   {
+    slug: "framework/kernels",
+    title: "Private kernels",
+    navLabel: "Kernels",
+    summary: "Install and update independently versioned capabilities through Company OS.",
+    description: "Private kernel packaging, compatibility, web selections, MCP runtime receipts and safe updates.",
+    keywords: ["kernels", "private packages", "Bun", "updates", "design-os", "business-os"],
+    sections: [
+      { id: "model", label: "Host and kernels" },
+      { id: "connect", label: "Connect a runtime" },
+      { id: "updates", label: "Initialization and updates" },
+      { id: "state", label: "Versioned state" },
+      { id: "mcp", label: "MCP handshake" },
+      { id: "recovery", label: "Recovery" },
+      { id: "authors", label: "Kernel authors" },
+    ],
+  },
+  {
     slug: "framework/install",
     title: "Install the framework",
     navLabel: "Install",

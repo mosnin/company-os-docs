@@ -35,7 +35,7 @@ const requiredStrings = [
   "https://www.companyos.sh/api/mcp",
   "@mosnin/companyos",
   "2025-06-18",
-  "company-os-ledger 1.6.0",
+  "company-os-ledger 1.12.0",
   "Not published yet",
 ];
 
