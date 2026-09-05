@@ -7,19 +7,19 @@ export function KernelDocs() {
     <Section id="model" title="One host, separate kernels">
       <p>Business OS is selected by default on first authenticated host startup. Design OS and other kernels are per-company opt-ins. Returning to an already configured runtime does not reinstall satisfied dependencies.</p>
       <p>Company OS owns execution controls and the local installer. Business OS and Design OS are separate private packages under <code>@mosnin</code>. Product OS has a draft contract but no authored capabilities yet.</p>
-      <p>The web app records what the company wants installed. MCP carries that request to the local runtime, which validates and installs the packages, then reports the result. A saved request is not an installation.</p>
+      <p>The web app records what the company wants installed. MCP carries that request to the local runtime, which validates and installs the packages, then reports the result. A saved selection is not an installation or update command. Re-registering it does not advance the configuration revision.</p>
       <Callout title="Release boundary">The protocol implementation, registry publication and web deployment are separate steps. Do not assume a package exists just because its name appears in the catalog.</Callout>
     </Section>
     <Section id="connect" title="Connect a runtime">
-      <p>In the web app, open Settings, then Manage kernels. Owners and admins can request an install or update within a version constraint. Give the local runtime a company-bound key with <code>kernels:report</code>. Only grant <code>kernels:manage</code> if that key also needs to change the selections.</p>
+      <p>In the web app, open Settings, then Manage kernels. Owners and admins select kernels. This page is configuration only: Company OS itself installs and updates packages. Configured kernels have no Update button. Give the local runtime a company-bound key with <code>kernels:report</code>. Only grant <code>kernels:manage</code> if that key also needs to change the selections.</p>
       <p>Set <code>COMPANY_OS_MCP_URL</code> to your trusted HTTPS MCP endpoint and <code>COMPANY_OS_MCP_TOKEN</code> through your secret manager. Set <code>COMPANY_OS_REGISTRY_TOKEN</code> to a classic GitHub PAT with <code>read:packages</code> and access to the private kernel packages. Never store these secrets in company documents or source control.</p>
       <CodeBlock code={`python3 scripts/kernels.py init --project /absolute/project\npython3 scripts/kernels.py sync --project /absolute/project\npython3 scripts/kernels.py status --project /absolute/project`} />
       <p>These commands run from a Company OS checkout. Installed skill distributions use <code>elastic-company-os/scripts/kernel_manager.py</code> in place of the repository wrapper.</p>
     </Section>
     <Section id="updates" title="Check at initialization, update on request">
       <p>New project initialization creates version metadata. Session initialization verifies installed files and checks the registry using a 24-hour cache. It does not update silently or poll before every task. Offline checks remain unknown, not current.</p>
-      <p>Use the <code>update-kernels</code> MCP prompt, often shown as <code>/update-kernels</code> by clients. A web-bound runtime runs sync against its approved selections. A local-only runtime updates within its saved constraints.</p>
-      <CodeBlock code={`# Web-bound\npython3 scripts/kernels.py sync --project /absolute/project\n# Local-only\npython3 scripts/kernels.py update-kernels --project /absolute/project\n# Check only, without using the cache\npython3 scripts/kernels.py check --project /absolute/project`} />
+      <p>Use the <code>update-kernels</code> MCP prompt, often shown as <code>/update-kernels</code> by clients. Run update-kernels inside Company OS for both web-bound and local-only projects. Web-bound updates pull approved configuration and report completion. Ordinary sync only installs missing kernels and preserves existing versions.</p>
+      <CodeBlock code={`# Explicit update inside Company OS\npython3 scripts/kernels.py update-kernels --project /absolute/project\n# Check only, without using the cache\npython3 scripts/kernels.py check --project /absolute/project`} />
       <p>An exact version stays pinned. Caret, tilde and bounded ranges allow deliberate update policies. A major-version expansion requires a new approved constraint.</p>
     </Section>
     <Section id="state" title="Versions and company data stay separate">
@@ -35,7 +35,7 @@ export function KernelDocs() {
       <p>Existing write keys do not gain these new grants. Reports are runtime attestations, not server verification of a remote filesystem. Old revisions, conflicting generations and receipts missing requested versions are refused. A runtime identity is bound to its first reporting key.</p>
     </Section>
     <Section id="recovery" title="Fail safely and recover">
-      <p>All dependencies stage before one atomic activation. The installer verifies archive integrity and compatibility, refuses cycles and unsafe paths, and never runs package scripts. Changed installed files and data schema migrations stop the update. Existing active versions and company data are preserved on validation failure.</p>
+      <p>All dependencies stage before one atomic activation. Configuration reconciliation preserves satisfying installed versions, including when another kernel is added. The explicit Company OS update command is the only upgrade-enabled path. The installer verifies archive integrity and compatibility, refuses cycles and unsafe paths, and never runs package scripts. Changed installed files and data schema migrations stop the update. Existing active versions and company data are preserved on validation failure.</p>
       <CodeBlock code={`# Retry receipt delivery without reinstalling\npython3 scripts/kernels.py report --project /absolute/project\n# Activate a retained version set as a new generation\npython3 scripts/kernels.py rollback --generation 1 --project /absolute/project`} />
       <p>A failed report can follow a successful local installation. Inspect status first. A newer web request needs another sync. Uninstall, garbage collection, automatic data migration and runtime-key ownership transfer are not part of v1.</p>
     </Section>
