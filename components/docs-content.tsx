@@ -1,5 +1,6 @@
 import { CodeBlock } from "@/components/code-block";
 import { KernelDocs } from "@/components/kernel-docs";
+import { MobileConnectionDocs } from "@/components/mobile-connection-docs";
 import {
   Callout,
   InlineLink,
@@ -745,6 +746,7 @@ export function DocsContent({ doc }: { doc: DocPage }) {
     case "": return <OverviewPage />;
     case "start/mental-model": return <MentalModelPage />;
     case "app/quickstart": return <AppQuickstartPage />;
+    case "app/mobile-and-connections": return <MobileConnectionDocs />;
     case "app/context-ledger": return <ContextLedgerPage />;
     case "app/api-keys": return <AgentKeysPage />;
     case "framework/install": return <FrameworkInstallPage />;

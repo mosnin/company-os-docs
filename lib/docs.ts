@@ -50,6 +50,20 @@ const start: DocPage[] = [
 
 const app: DocPage[] = [
   {
+    slug: "app/mobile-and-connections",
+    title: "Mobile app and connections",
+    navLabel: "Mobile and connections",
+    summary: "Install the web app and understand what connection status confirms.",
+    description: "PWA installation, private-data offline boundaries, and Stored account ownership.",
+    keywords: ["mobile", "PWA", "iPhone", "Android", "offline", "Stored", "brain", "account"],
+    sections: [
+      { id: "install", label: "Install the web app" },
+      { id: "offline", label: "Offline and updates" },
+      { id: "stored", label: "Stored account ownership" },
+      { id: "verification", label: "Verification boundaries" },
+    ],
+  },
+  {
     slug: "app/quickstart",
     title: "Web app quickstart",
     navLabel: "Quickstart",
