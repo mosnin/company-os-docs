@@ -50,6 +50,20 @@ const start: DocPage[] = [
 
 const app: DocPage[] = [
   {
+    slug: "app/mobile-and-connections",
+    title: "Mobile app and connections",
+    navLabel: "Mobile and connections",
+    summary: "Install the web app and understand what connection status confirms.",
+    description: "PWA installation, private-data offline boundaries, and Stored account ownership.",
+    keywords: ["mobile", "PWA", "iPhone", "Android", "offline", "Stored", "brain", "account"],
+    sections: [
+      { id: "install", label: "Install the web app" },
+      { id: "offline", label: "Offline and updates" },
+      { id: "stored", label: "Stored account ownership" },
+      { id: "verification", label: "Verification boundaries" },
+    ],
+  },
+  {
     slug: "app/quickstart",
     title: "Web app quickstart",
     navLabel: "Quickstart",
@@ -94,6 +108,23 @@ const app: DocPage[] = [
 ];
 
 const framework: DocPage[] = [
+  {
+    slug: "framework/kernels",
+    title: "Private kernels",
+    navLabel: "Kernels",
+    summary: "Install and update independently versioned capabilities through Company OS.",
+    description: "Private kernel packaging, compatibility, web selections, MCP runtime receipts and safe updates.",
+    keywords: ["kernels", "private packages", "Bun", "updates", "design-os", "business-os"],
+    sections: [
+      { id: "model", label: "Host and kernels" },
+      { id: "connect", label: "Connect a runtime" },
+      { id: "updates", label: "Initialization and updates" },
+      { id: "state", label: "Versioned state" },
+      { id: "mcp", label: "MCP handshake" },
+      { id: "recovery", label: "Recovery" },
+      { id: "authors", label: "Kernel authors" },
+    ],
+  },
   {
     slug: "framework/install",
     title: "Install the framework",

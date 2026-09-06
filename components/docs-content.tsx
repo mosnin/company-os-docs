@@ -1,4 +1,6 @@
 import { CodeBlock } from "@/components/code-block";
+import { KernelDocs } from "@/components/kernel-docs";
+import { MobileConnectionDocs } from "@/components/mobile-connection-docs";
 import {
   Callout,
   InlineLink,
@@ -17,6 +19,7 @@ const appUrl = "https://www.companyos.sh";
 const mcpEndpoint = "https://www.companyos.sh/api/mcp";
 
 const readTools = [
+  { name: "kernels_status", capability: "context:read", purpose: "Read requested kernel versions and runtime-reported installations." },
   { name: "config_pull", capability: "context:read", purpose: "Pull the company profile, branches, registry, and committed document index." },
   { name: "document_get", capability: "context:read", purpose: "Read one typed document or the empty template for a document kind." },
   { name: "context_search", capability: "context:read", purpose: "Search company documents and return compact, revision-aware hits." },
@@ -31,6 +34,8 @@ const readTools = [
 ];
 
 const changeTools = [
+  { name: "kernels_request", capability: "kernels:manage", purpose: "Save a revision-checked kernel request. Does not install files." },
+  { name: "kernels_report", capability: "kernels:report", purpose: "Record a locally verified installation receipt for the requested revision." },
   { name: "document_put", capability: "context:write", purpose: "Commit a revision with typed content, a message, and base_revision." },
   { name: "branch_create", capability: "branch:create", purpose: "Open an isolated branch for a draft or alternate strategy." },
   { name: "feedback_add", capability: "feedback:write", purpose: "Append verbatim customer feedback to a product document." },
@@ -394,7 +399,7 @@ MCP-Protocol-Version: 2025-06-18`} />
   -H 'Content-Type: application/json' \\
   -H 'MCP-Protocol-Version: 2025-06-18' \\
   --data '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"company-os-check","version":"1.0.0"}}}'`} />
-        <p>A successful response identifies <code>company-os-ledger</code> version <code>1.6.0</code> and returns the capabilities held by that key.</p>
+        <p>The kernel-capable release identifies <code>company-os-ledger</code> version <code>1.12.0</code> and returns the capabilities held by that key. Discover the live version before using new tools.</p>
       </Section>
       <Section id="first-calls" title="Make the first calls">
         <p>Start with discovery. Do not guess document kinds or slugs.</p>
@@ -454,7 +459,7 @@ codex mcp get company-os`} />
       </Section>
       <Section id="verify-client" title="Verify the client">
         <ol>
-          <li>Confirm the server reports <code>company-os-ledger 1.6.0</code>.</li>
+          <li>Kernel tools require <code>company-os-ledger 1.12.0</code> or a compatible newer release.</li>
           <li>Confirm the client sees exactly 18 tools.</li>
           <li>Call <code>resources/list</code> or <code>config_pull</code>.</li>
           <li>Read a document before testing a write.</li>
@@ -477,7 +482,7 @@ function McpContractPage() {
           <div><dt>Endpoint</dt><dd><code>{mcpEndpoint}</code></dd></div>
           <div><dt>Transport</dt><dd>Streamable HTTP in stateless JSON mode, with one POST per request and no SSE stream.</dd></div>
           <div><dt>MCP revision</dt><dd><code>2025-06-18</code></dd></div>
-          <div><dt>Server</dt><dd><code>company-os-ledger 1.6.0</code></dd></div>
+          <div><dt>Kernel-capable server</dt><dd><code>company-os-ledger 1.12.0</code></dd></div>
           <div><dt>Ledger contract</dt><dd><code>context-ledger.v1</code></dd></div>
           <div><dt>Methods</dt><dd><code>initialize</code>, <code>ping</code>, tools, and resources.</dd></div>
         </dl>
@@ -628,7 +633,7 @@ function VersioningPage() {
       <Section id="versions" title="Know the versions">
         <dl className="definition-list">
           <div><dt>Framework</dt><dd><code>0.6.0</code> in the current canonical repository.</dd></div>
-          <div><dt>MCP server</dt><dd><code>company-os-ledger 1.6.0</code>.</dd></div>
+          <div><dt>Kernel-capable MCP release</dt><dd><code>company-os-ledger 1.12.0</code>.</dd></div>
           <div><dt>MCP revision</dt><dd><code>2025-06-18</code>.</dd></div>
           <div><dt>Ledger contract</dt><dd><code>context-ledger.v1</code>.</dd></div>
         </dl>
@@ -642,7 +647,7 @@ function VersioningPage() {
       </Section>
       <Section id="mcp-compatibility" title="MCP compatibility">
         <p>
-          Ledger server 1.6.0 is additive relative to 1.5. Existing tool names and optional parameters remain compatible. New clients should still discover the live server with <code>initialize</code> and <code>tools/list</code> instead of hard-coding an assumed surface.
+          Ledger server 1.12.0 adds private kernel requests and runtime receipts. Existing tools remain compatible and old credentials gain no new kernel privileges. Discover the live server with <code>initialize</code> and <code>tools/list</code> instead of assuming this code has been deployed.
         </p>
       </Section>
       <Section id="release-checklist" title="Release checklist">
@@ -741,9 +746,11 @@ export function DocsContent({ doc }: { doc: DocPage }) {
     case "": return <OverviewPage />;
     case "start/mental-model": return <MentalModelPage />;
     case "app/quickstart": return <AppQuickstartPage />;
+    case "app/mobile-and-connections": return <MobileConnectionDocs />;
     case "app/context-ledger": return <ContextLedgerPage />;
     case "app/api-keys": return <AgentKeysPage />;
     case "framework/install": return <FrameworkInstallPage />;
+    case "framework/kernels": return <KernelDocs />;
     case "framework/architecture": return <FrameworkArchitecturePage />;
     case "framework/operators": return <FrameworkOperatorsPage />;
     case "mcp/connect": return <McpConnectPage />;
