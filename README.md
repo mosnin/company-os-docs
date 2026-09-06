@@ -37,3 +37,9 @@ This local repository has no remote and is not linked to a Vercel project yet. B
 - The `@mosnin/companyos` npm command is marked release gated because the package is not published.
 - The MCP contract is documented from the current web ledger source.
 - Provider-backed app features are not presented as live without a production key and smoke test.
+
+## Kernel compatibility maintenance
+
+The optional Dev OS package joins Business OS and Design OS under the existing
+Company OS protocol v1. Keep `docs/kernels.md`, the rendered Private kernels page
+and the canonical schema aligned. Package readiness is separate from publication.

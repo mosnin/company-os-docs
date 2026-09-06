@@ -5,8 +5,9 @@ export function KernelDocs() {
   return <>
     <PageIntro title="Private kernels" description="Add independently versioned capabilities to Company OS without merging their repositories or replacing company data." />
     <Section id="model" title="One host, separate kernels">
-      <p>Business OS is selected by default on first authenticated host startup. Design OS and other kernels are per-company opt-ins. Returning to an already configured runtime does not reinstall satisfied dependencies.</p>
-      <p>Company OS owns execution controls and the local installer. Business OS and Design OS are separate private packages under <code>@mosnin</code>. Product OS has a draft contract but no authored capabilities yet.</p>
+      <p>Business OS is selected by default on first authenticated host startup. Design OS and Dev OS are per-company opt-ins. Returning to an already configured runtime does not reinstall satisfied dependencies.</p>
+      <p>Company OS owns execution controls and the local installer. Business OS, Design OS and Dev OS are separate private packages under <code>@mosnin</code>. Product OS has a draft contract but no authored capabilities yet.</p>
+      <p>Dev OS provides engineering implementation, debugging, tests and verification guidance through one navigator. It consumes existing work packets and Design OS plans. Company OS keeps authority and acceptance; installing Dev OS runs no scripts and grants no permissions.</p>
       <p>The web app records what the company wants installed. MCP carries that request to the local runtime, which validates and installs the packages, then reports the result. A saved selection is not an installation or update command. Re-registering it does not advance the configuration revision.</p>
       <Callout title="Release boundary">The protocol implementation, registry publication and web deployment are separate steps. Do not assume a package exists just because its name appears in the catalog.</Callout>
     </Section>
