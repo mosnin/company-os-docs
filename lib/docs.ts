@@ -86,6 +86,8 @@ const app: DocPage[] = [
     keywords: ["ledger", "documents", "revision", "branch", "hash", "department"],
     sections: [
       { id: "documents", label: "Documents and departments" },
+      { id: "reading", label: "Read before editing" },
+      { id: "visual-models", label: "Visual models" },
       { id: "revisions", label: "Revisions and hashes" },
       { id: "branches", label: "Branches and main" },
       { id: "history", label: "History and reverts" },

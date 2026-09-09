@@ -183,9 +183,30 @@ function ContextLedgerPage() {
       <PageIntro title="The context ledger" description="The web app stores company knowledge like a source repository stores code: typed, attributable, and reversible." />
       <Section id="documents" title="Documents and departments">
         <p>
-          A document belongs to a registry kind and appears in a department view. The registry defines its fields, field types, table shapes, and authoring hints. This gives people a clear page to edit and gives agents a schema they can discover instead of guess.
+          A document belongs to a registry kind and appears in a department view. The registry defines its fields, field types, table shapes, and authoring hints. People read and explicitly edit the same structured content that agents discover through the schema.
         </p>
         <p>Call <code>schema_describe</code> over MCP to read the same registry shape agents must follow.</p>
+      </Section>
+      <Section id="reading" title="Read before editing">
+        <Callout title="Implementation status">
+          <p>The read-first interface is implemented on the web app’s development branch. These instructions describe that implementation, not a verified production rollout.</p>
+        </Callout>
+        <p>Department documents open in Read, including empty documents and recovered local drafts. Choose Edit when you want to change content. Browsing a document does not create a revision or discard your draft.</p>
+        <ul>
+          <li><strong>Focus</strong> shows one section at a time. Use the section picker, Previous, and Next to move through it.</li>
+          <li><strong>Read all</strong> keeps every field available in one continuous reading view.</li>
+          <li><strong>Overview</strong> appears when the document has a visual model. Select a region to read its complete section.</li>
+        </ul>
+        <p>The category picker jumps between existing entries in the same department group. Navigation retains the active branch. Repeatable document templates have a preview before you choose Create an entry; a preview does not save a document.</p>
+        <p>Authoring guidance is available through About this section rather than occupying the reading surface. Revision history remains available below the document, with the existing commit, conflict, and recovery controls retained.</p>
+      </Section>
+      <Section id="visual-models" title="Visual models">
+        <p>Visual presentations are read-only projections of the registry fields, not separate data stores. SWOT uses its four quadrants; journey maps show stages and layers; supported scoring frameworks use comparisons. Existing business model, value proposition, and portfolio canvases keep their specialized workbenches.</p>
+        <p>The service blueprint has its own Map and By stage readers. Evidence, customer actions, frontstage, backstage, and support are separated by named service boundaries. Connectors represent explicitly recorded handoffs, never relationships guessed from prose. Optional evidence, handoff, and recovery fields are appended in template version 2; the original columns and saved content remain intact. Missing or ambiguous links remain unplaced and can be inspected in Read all. Phones start with one stage; the complete map stays available.</p>
+        <p>The framework atlas explicitly maps 92 document kinds, within an inventory of all 207 registered kinds. These include shared-edge SWOT quadrants, strategy maps, process lanes, relationship maps, matrices, calendars, and timelines. Ordinary records remain structured readers. The count describes implementation coverage, not a visual quality score or a production rollout.</p>
+        <p>A recognizable concept does not require a literal outline that makes the content hard to read. Customer profiles use a rectangular jobs, gains, and pains canvas. Market scopes use nested rectangles. Every view uses the same type roles, spacing, inspection controls, and neutral surfaces.</p>
+        <p>Phones have deliberate compositions: connected-object inspection for graphs, a selected stage for journeys, a selected record for comparisons, and a seven-day calendar with selected-day detail. Simple canvases fit the available width; timelines turn vertical. A clipped desktop map is not considered mobile support. Supporting sections are disclosed below the model; Focus and Read all retain every original field.</p>
+        <p>Connections require exact recorded references. Optional relationship fields are appended where older templates could not represent edges. Ambiguous names, invalid coordinates, missing dates, and mixed scales are reported rather than guessed. Looking at or navigating a diagram never writes a revision.</p>
       </Section>
       <Section id="revisions" title="Revisions and hashes">
         <p>
